@@ -33,7 +33,6 @@ const weatherApp = {
     // var lat = "33.415180";
     // var lon = "-111.831497";
     var weatherurl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apikey}`;
-    console.log(lat);
     //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     //experienced a CORS error on fetch attemp 11:51PM 01/22/23
     fetch(weatherurl)
@@ -81,6 +80,10 @@ const weatherApp = {
     //   position.coords.latitude.toFixed(2);
     // document.getElementById("longitude").value =
     //   position.coords.longitude.toFixed(2);
+    weatherApp.fetchWeather(
+      position.coords.latitude.toFixed(2),
+      position.coords.longitude.toFixed(2)
+    );
   },
   successAny: (lat, lon) => {
     // show the longitude and latitude on the UI
