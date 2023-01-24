@@ -9,8 +9,18 @@ const weatherApp = {
     // document
     //   .getElementById("btnAny")
     //   .addEventListener("click", weatherApp.getAnyLocation);
-    //weatherApp.getCurrentLocation();
-    weatherApp.getAnyLocation();
+
+    const charSet = `1234567890"!#$%&'()*+,-./:;<=>?@[]^_{|}~`;
+    var cityInput = "san francisco";
+    let hasCommonElements = charSet
+      .split("")
+      .some((element) => cityInput.split("").includes(element));
+    if (hasCommonElements) {
+      throw new Error("you suck");
+    } else {
+      //weatherApp.getCurrentLocation();
+      weatherApp.getAnyLocation(cityInput);
+    }
   },
   fetchWeather: (lat, lon) => {
     // //https://openweathermap.org/api/geocoding-api
@@ -55,7 +65,7 @@ const weatherApp = {
     //https://www.youtube.com/watch?v=tc8DU14qX6I&ab_channel=TheCodingTrain
   },
 
-  getCurrentLocation: (ev) => {
+  getCurrentLocation: () => {
     let opts = {
       enableHighAccuracy: true,
       timeout: 1000 * 10, //seconds
@@ -67,11 +77,11 @@ const weatherApp = {
       opts
     );
   },
-  getAnyLocation: (event) => {
-    var city = "mesa";
-    var state = "AZ";
+  getAnyLocation: (city) => {
+    //var city = "boston";
+    //var state = "AZ";
     var apikey = "443d0f967419d0d088b3f740ceaaae6e";
-    var geourl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&appid=${apikey}`;
+    var geourl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},US&appid=${apikey}`;
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
     fetch(geourl)
       .then((response) => response.json())
@@ -144,3 +154,4 @@ const weatherApp = {
 };
 
 weatherApp.init();
+//need to validate city input
