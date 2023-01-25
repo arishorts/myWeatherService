@@ -16,6 +16,138 @@
     <link rel="icon" type="image/x-icon" href="./assets/images/favicon.ico" />
   </head>
   <body>
+    <div class="container-fluid">
+      <!-- Header -->
+      <div class="row text-center bg-primary p-2">
+        <div class="col-lg-4 col-0"></div>
+        <h1 class="col-lg-8 col-12 text-white display-2">Weather Dashboard</h1>
+      </div>
+    </div>
+
+    <main class="container-fluid">
+      <div class="row">
+        <!-- Sidebar -->
+        <section class="container col-lg-3 px-4">
+          <!-- Search a city-->
+          <div
+            id="searchContainer"
+            class="row py-2 px-3 border-bottom border-5 border-primary"
+          >
+            <h2 class="text-center fs-1">Search for a City:</h2>
+            <form class="p-0" action="">
+              <input class="col-12 p-1 my-2 mx-0" type="text" />
+              <button class="col-12 p-2 my-2" type="submit">Search</button>
+            </form>
+          </div>
+          <!-- Select a city -->
+          <div id="selectContainer" class="row py-3 px-3">
+            <button class="p-2 my-2 bg-secondary">Atlanta</button>
+            <button class="p-2 my-2 bg-secondary">Denver</button>
+            <button class="p-2 my-2 bg-secondary">Seattle</button>
+            <button class="p-2 my-2 bg-secondary">San Francisco</button>
+            <button class="p-2 my-2 bg-secondary">Orlando</button>
+            <button class="p-2 my-2 bg-secondary">New York</button>
+            <button class="p-2 my-2 bg-secondary">Chicago</button>
+            <button class="p-2 my-2 bg-secondary">Austin</button>
+          </div>
+        </section>
+
+        <!-- Weather Report -->
+        <section class="container col-lg-9">
+          <!-- Current -->
+          <div class="row border border-5 border-primary m-lg-4 p-2 m-3">
+            <h2 class="my-2 fs-1">Atlanta (9/13/2022)</h2>
+            <div class="my-2">Temp: 76.62 deg F</div>
+            <div class="my-2">Wind: 8.43 MPH</div>
+            <div class="my-2">Humidity: 44%</div>
+          </div>
+          <!-- 5 Day Forecast -->
+          <div
+            class="row m-2 justify-content-lg-between justify-content-center"
+          >
+            <h3 class="mb-2 text-center display-4">
+              <strong>5-Day Forecast:</strong>
+            </h3>
+            <div
+              class="card text-center p-lg-0 p-3 col-lg-2 col-md-7 col-10 m-lg-1 m-4"
+            >
+              <h5 class="card-title my-3">9/13/2022</h5>
+              <img
+                src="http://openweathermap.org/img/wn/10d@2x.png"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <div class="my-2">Temp: 76.62 deg F</div>
+                <div class="my-2">Wind: 8.43 MPH</div>
+                <div class="my-2">Humidity: 44%</div>
+              </div>
+            </div>
+            <div
+              class="card text-center p-lg-0 p-3 col-lg-2 col-md-7 col-10 m-lg-1 m-4"
+            >
+              <h5 class="card-title my-3">9/13/2022</h5>
+              <img
+                src="http://openweathermap.org/img/wn/10d@2x.png"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <div class="my-2">Temp: 76.62 deg F</div>
+                <div class="my-2">Wind: 8.43 MPH</div>
+                <div class="my-2">Humidity: 44%</div>
+              </div>
+            </div>
+            <div
+              class="card text-center p-lg-0 p-3 col-lg-2 col-md-7 col-10 m-lg-1 m-4"
+            >
+              <h5 class="card-title my-3">9/13/2022</h5>
+              <img
+                src="http://openweathermap.org/img/wn/10d@2x.png"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <div class="my-2">Temp: 76.62 deg F</div>
+                <div class="my-2">Wind: 8.43 MPH</div>
+                <div class="my-2">Humidity: 44%</div>
+              </div>
+            </div>
+            <div
+              class="card text-center p-lg-0 p-3 col-lg-2 col-md-7 col-10 m-lg-1 m-4"
+            >
+              <h5 class="card-title my-3">9/13/2022</h5>
+              <img
+                src="http://openweathermap.org/img/wn/10d@2x.png"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <div class="my-2">Temp: 76.62 deg F</div>
+                <div class="my-2">Wind: 8.43 MPH</div>
+                <div class="my-2">Humidity: 44%</div>
+              </div>
+            </div>
+            <div
+              class="card text-center p-lg-0 p-3 col-lg-2 col-md-7 col-10 m-lg-1 m-4"
+            >
+              <h5 class="card-title my-3">9/13/2022</h5>
+              <img
+                src="http://openweathermap.org/img/wn/10d@2x.png"
+                class="card-img-top"
+                alt="..."
+              />
+              <div class="card-body">
+                <div class="my-2">Temp: 76.62 deg F</div>
+                <div class="my-2">Wind: 8.43 MPH</div>
+                <div class="my-2">Humidity: 44%</div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </main>
+
     <script src="./assets/js/index.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/dayjs@1/dayjs.min.js"></script>
     <script>

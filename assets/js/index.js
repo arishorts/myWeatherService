@@ -10,8 +10,8 @@ const weatherApp = {
     //   .getElementById("btnAny")
     //   .addEventListener("click", weatherApp.getAnyLocation);
 
-    const charSet = `1234567890"!#$%&'()*+,-./:;<=>?@[]^_{|}~`;
-    var cityInput = "san francisco";
+    const charSet = `1234567890"!#$%&'()*+,./:;<=>?@[]^_{|}~`;
+    var cityInput = "boston";
     let hasCommonElements = charSet
       .split("")
       .some((element) => cityInput.split("").includes(element));
@@ -78,11 +78,12 @@ const weatherApp = {
     );
   },
   getAnyLocation: (city) => {
-    //var city = "boston";
-    //var state = "AZ";
+    //var city = "clovis";
+    //var state = "NM";
     var apikey = "443d0f967419d0d088b3f740ceaaae6e";
     var geourl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},US&appid=${apikey}`;
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
+    //var geourl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&appid=${apikey}`;
     fetch(geourl)
       .then((response) => response.json())
       .then((data) => {

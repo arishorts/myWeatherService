@@ -1,0 +1,7 @@
+.card h5 {
+  font-size: clamp(1.3rem, calc(4rem - 4vw), 2.1rem);
+}
+
+.card-body {
+  font-size: clamp(1rem, calc(3rem - 3vw), 1.5rem);
+}
