@@ -103,10 +103,12 @@ const weatherApp = {
 
   showWeatherForecast: (response) => {
     console.log(response);
+    $("#forecastFill").empty();
     for (let i = 0; i < 40; i++) {
       const date = response.list[i].dt_txt;
       const dateConvertTime = dayjs(date).format("H");
       //the weather for the day is determined by weather at noon
+
       if (dateConvertTime == 12) {
         //(01/30/2023 format)
         const dateConvertDay = dayjs(date).format("MM/DD/YYYY");
@@ -120,6 +122,43 @@ const weatherApp = {
         const iconcode = response.list[i].weather[0].icon;
         const iconurl =
           "http://openweathermap.org/img/wn/" + iconcode + "@2x.png";
+
+        let myTemplate = `
+          <div class="card align-items-center text-center p-lg-0 p-3 col-lg-2 col-md-6 col-8 m-lg-1 m-4 bg-primary">
+            <h5 class="card-title my-3">${dateConvertDay}</h5>
+            <img src="${iconurl}" class="card-img-top w-50" alt="..."/>
+            <div class="card-body px-1">
+              <div class="my-2">Temp: ${temp} degF</div>
+              <div class="my-2">Wind: ${wind}  MPH</div>
+              <div class="my-2">Humidity: ${hum} %</div>
+            </div>
+          </div>
+        `;
+
+        $("#forecastFill").append(myTemplate);
+
+        //   <div
+        //   id="forecastContainer"
+        //   class="row m-2 justify-content-lg-between justify-content-center align-items-start"
+        // >
+        //   <h3 class="mb-2 text-center display-4">
+        //     <strong>5-Day Forecast:</strong>
+        //   </h3>
+        //   <div
+        //     class="card align-items-center text-center p-lg-0 p-3 col-lg-2 col-md-6 col-8 m-lg-1 m-4"
+        //   >
+        //     <h5 class="card-title my-3">9/13/2022</h5>
+        //     <img
+        //       src="http://openweathermap.org/img/wn/10d@2x.png"
+        //       class="card-img-top w-50"
+        //       alt="..."
+        //     />
+        //     <div class="card-body px-1">
+        //       <div class="my-2">Temp: 76.62 degF</div>
+        //       <div class="my-2">Wind: 8.43 MPH</div>
+        //       <div class="my-2">Humidity: 44%</div>
+        //     </div>
+        //   </div>
       }
     }
   },
@@ -153,6 +192,8 @@ const weatherApp = {
     // append elements to DOM to display them
     iconSpan.append(iconEl);
   },
+
+  handleHistory: () => {},
 };
 
 weatherApp.init();
