@@ -84,6 +84,8 @@ const weatherApp = {
         console.log(error);
         weatherApp.fail;
       });
+
+    $("#inputLocation").val("");
   },
 
   successCurrent: (position) => {
@@ -102,6 +104,7 @@ const weatherApp = {
   },
 
   showWeatherForecast: (response) => {
+    weatherApp.handleHistory(response.city.name);
     console.log(response);
     $("#forecastFill").empty();
     for (let i = 0; i < 40; i++) {
@@ -193,7 +196,21 @@ const weatherApp = {
     iconSpan.append(iconEl);
   },
 
-  handleHistory: () => {},
+  handleHistory: (city) => {
+    console.log(city);
+    var historyBtn = $("<button>");
+    var historyContainer = $("#selectContainer");
+    historyBtn.addClass("p-2 my-2 bg-danger btnSelect");
+    historyBtn.text(city);
+
+    // append elements to DOM to display them
+    if (historyContainer.children().length <= 7) {
+      historyContainer.prepend(historyBtn);
+    } else {
+      historyContainer.find("button:last").remove();
+      historyContainer.prepend(historyBtn);
+    }
+  },
 };
 
 weatherApp.init();
