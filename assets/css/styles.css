@@ -5,3 +5,7 @@
 .card-body {
   font-size: clamp(1rem, calc(3rem - 3vw), 1.5rem);
 }
+
+#iconNow {
+  width: 100px !important;
+}

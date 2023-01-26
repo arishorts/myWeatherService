@@ -1,50 +1,38 @@
 const weatherApp = {
   init: () => {
-    // document
-    //   .getElementById("btnGet")
-    //   .addEventListener("click", weatherApp.fetchWeather);
-    // document
-    //   .getElementById("btnCurrent")
-    //   .addEventListener("click", weatherApp.getCurrentLocation);
-    // document
-    //   .getElementById("btnAny")
-    //   .addEventListener("click", weatherApp.getAnyLocation);
+    $("#btnCurrent").on("click", weatherApp.getCurrentLocation);
+    $("#selectContainer")
+      .ready()
+      .on("click", "button", (event) => {
+        weatherApp.getSearchLocation(event.target.innerHTML.trim());
+      });
+    $("#btnSearch").on("click", weatherApp.validate);
+  },
 
+  validate: (event) => {
+    event.preventDefault();
+
+    //read user input
+    var cityInput = $("#inputLocation").val().trim();
     const charSet = `1234567890"!#$%&'()*+,./:;<=>?@[]^_{|}~`;
-    var cityInput = "boston";
+
+    //check if there are numbers or symbols in the value
     let hasCommonElements = charSet
       .split("")
       .some((element) => cityInput.split("").includes(element));
     if (hasCommonElements) {
-      throw new Error("you suck");
+      throw new Error("must not contain numbers or symbols");
     } else {
-      //weatherApp.getCurrentLocation();
-      weatherApp.getAnyLocation(cityInput);
+      weatherApp.getSearchLocation(cityInput);
     }
+    //Validate: how do i validate whether or not the city exists
   },
+
   fetchWeather: (lat, lon) => {
     // //https://openweathermap.org/api/geocoding-api
-    // var city = "mesa";
-    // var state = "AZ";
     const apikey = "443d0f967419d0d088b3f740ceaaae6e";
-    // var geourl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&appid=${apikey}`;
-    // // var geoObj = {};
-    // // var geoarraylat = "";
-    // // var geoarraylon = "";
-    // fetch(geourl)
-    //   .then((response) => response.json())
-    //   .then((data) => {
-    //     var geoObj = Object.assign(data);
-    //     var geoarraylat = geoObj[0].lat;
-    //     var geoarraylon = geoObj[0].lon;
-
-    //https://openweathermap.org/forecast5
-    //https://www.latlong.net/
-    // var lat = "33.415180";
-    // var lon = "-111.831497";
-
     const weatherurlNow = `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apikey}&units=imperial`;
-    const weatherurl = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apikey}&units=imperial`;
+    const weatherurlForecast = `https://api.openweathermap.org/data/2.5/forecast?lat=${lat}&lon=${lon}&appid=${apikey}&units=imperial`;
     //https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
     //experienced a CORS error on fetch attemp 11:51PM 01/22/23
     fetch(weatherurlNow)
@@ -54,7 +42,7 @@ const weatherApp = {
         console.log(error);
         weatherApp.fail;
       });
-    fetch(weatherurl)
+    fetch(weatherurlForecast)
       .then((response) => response.json())
       .then((data) => weatherApp.showWeatherForecast(data))
       .catch((error) => {
@@ -65,7 +53,8 @@ const weatherApp = {
     //https://www.youtube.com/watch?v=tc8DU14qX6I&ab_channel=TheCodingTrain
   },
 
-  getCurrentLocation: () => {
+  getCurrentLocation: (event) => {
+    event.preventDefault();
     let opts = {
       enableHighAccuracy: true,
       timeout: 1000 * 10, //seconds
@@ -77,9 +66,8 @@ const weatherApp = {
       opts
     );
   },
-  getAnyLocation: (city) => {
-    //var city = "clovis";
-    //var state = "NM";
+
+  getSearchLocation: (city) => {
     var apikey = "443d0f967419d0d088b3f740ceaaae6e";
     var geourl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},US&appid=${apikey}`;
     //https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/then
@@ -90,35 +78,29 @@ const weatherApp = {
         var geoObj = Object.assign(data);
         var geoarraylat = geoObj[0].lat;
         var geoarraylon = geoObj[0].lon;
-        weatherApp.successAny(geoarraylat, geoarraylon);
+        weatherApp.successSearch(geoarraylat, geoarraylon);
       })
       .catch((error) => {
         console.log(error);
         weatherApp.fail;
       });
   },
+
   successCurrent: (position) => {
-    // show the longitude and latitude on the UI
-    // document.getElementById("latitude").value =
-    //   position.coords.latitude.toFixed(2);
-    // document.getElementById("longitude").value =
-    //   position.coords.longitude.toFixed(2);
-    // console.log(position);
     weatherApp.fetchWeather(
       position.coords.latitude, //.toFixed(1),
       position.coords.longitude //.toFixed(1)
     );
   },
-  successAny: (lat, lon) => {
-    // show the longitude and latitude on the UI
-    // document.getElementById("latitude").value = lat;
-    // document.getElementById("longitude").value = lon;
-    // console.log(lat, lon);
+
+  successSearch: (lat, lon) => {
     weatherApp.fetchWeather(lat, lon);
   },
+
   fail: (err) => {
     console.log("you have an error");
   },
+
   showWeatherForecast: (response) => {
     console.log(response);
     for (let i = 0; i < 40; i++) {
@@ -141,9 +123,10 @@ const weatherApp = {
       }
     }
   },
+
   showWeatherNow: (response) => {
-    console.log(response);
-    const nowTime = dayjs().format("hh:mm");
+    //get values from the weather now API object and display them in current weather box
+    const nowTime = dayjs().format("hh:mm A [M.T.]");
     const nowDate = dayjs().format("MM/DD/YYYY");
     const nowTemp = response.main.temp;
     const nowHum = response.main.humidity;
@@ -151,6 +134,24 @@ const weatherApp = {
     const nowIconcode = response.weather[0].icon;
     const nowIconurl =
       "http://openweathermap.org/img/wn/" + nowIconcode + "@2x.png";
+
+    $("#locationSelected").text(response.name);
+    $("#dateToday").text(`${nowDate} at ${nowTime}`);
+    $("#currentContainer")
+      .children("div")
+      .eq(0)
+      .text(`Temp: ${nowTemp} ${String.fromCharCode(176)}F`);
+    $("#currentContainer").children("div").eq(1).text(`Wind: ${nowWind} MPH`);
+    $("#currentContainer").children("div").eq(2).text(`Humidity: ${nowHum}%`);
+
+    // Create row and columns for project
+    var iconEl = $("<img>");
+    var iconSpan = $("#iconSpan");
+    iconSpan.empty();
+    iconEl.attr("src", nowIconurl);
+
+    // append elements to DOM to display them
+    iconSpan.append(iconEl);
   },
 };
 
