@@ -125,7 +125,6 @@ const weatherApp = {
       const dateConvertTime = dayjs(date).format("H");
 
       if (dateConvertTime == 0) {
-        console.log(i);
         //(01/30/2023 format)
         const dateConvertDay = dayjs(date).format("MM/DD/YYYY");
         //(temp + " deg F)
