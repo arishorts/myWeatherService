@@ -81,7 +81,7 @@ const weatherApp = {
   //get location using openweathermap api's geolocation
   getSearchLocation: (city) => {
     var apikey = "443d0f967419d0d088b3f740ceaaae6e";
-    var geourl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},US&appid=${apikey}`;
+    var geourl = `https://api.openweathermap.org/geo/1.0/direct?q=${city},US&appid=${apikey}`;
     //var geourl = `http://api.openweathermap.org/geo/1.0/direct?q=${city},${state},US&appid=${apikey}`;
     fetch(geourl)
       .then((response) => response.json())
@@ -136,7 +136,7 @@ const weatherApp = {
         //(used to determine the img used for display);
         const iconcode = response.list[i].weather[0].icon;
         const iconurl =
-          "http://openweathermap.org/img/wn/" + iconcode + "@2x.png";
+          "https://openweathermap.org/img/wn/" + iconcode + "@2x.png";
 
         let myTemplate = `
           <div class="card align-items-center text-center p-lg-0 p-3 col-lg-2 col-md-6 col-8 m-lg-1 m-4 bg-primary">
@@ -187,7 +187,7 @@ const weatherApp = {
     const nowWind = response.wind.speed;
     const nowIconcode = response.weather[0].icon;
     const nowIconurl =
-      "http://openweathermap.org/img/wn/" + nowIconcode + "@2x.png";
+      "https://openweathermap.org/img/wn/" + nowIconcode + "@2x.png";
 
     $("#locationSelected").text(response.name);
     $("#dateToday").text(`${nowDate} at ${nowTime}`);
